@@ -3,33 +3,33 @@ import React, {useState} from 'react';
 
 const StoryList = ({stories}) => {
 
-    
     const[deleteArray, setDeleteArray] = useState([]);
-    //const storyFiltered = stories.filter(story => !deleteArray.includes(useStory))
+
     const onDeleteChange = (id) => {
         setDeleteArray(...deleteArray, id);
     };
 
     console.log(stories);
-    console.log(deleteArray);
-    console.log(typeof(deleteArray));
+
 
     const renderedList = stories.map((story) => {
 
-        if (deleteArray.indexOf(story.objectID) === -1) {
-    
-            return (
-                <tr key = {story.objectID} id = {story.objectID}>
-                    <td data-label="id">{story.objectID} </td>
-                    <td data-label="author">{story.author}</td>
-                    <td data-label="comments">{story.num_comments}</td>
-                    <td data-label="title">{story.title}</td>
-                    <td data-label="URL">{story.url}</td>
-                    <td> <button onClick = {()=> onDeleteChange(story.objectID)}> Delete </button></td>
-                </tr>      
-            );
+        if(deleteArray) {
+            if (deleteArray.indexOf(story.objectID) === -1) {
+        
+                return (
+                    <tr key = {story.objectID} id = {story.objectID}>
+                        <td data-label="id">{story.objectID} </td>
+                        <td data-label="author">{story.author}</td>
+                        <td data-label="comments">{story.num_comments}</td>
+                        <td data-label="title">{story.title}</td>
+                        <td data-label="URL">{story.url}</td>
+                        <td> <button onClick = {(e)=> onDeleteChange(story.objectID)}> Delete </button></td>
+                    </tr>      
+                );
+                }
             }
-            return null;
+                return null;
     });
 
     return (
